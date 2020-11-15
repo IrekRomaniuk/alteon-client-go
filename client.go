@@ -9,7 +9,7 @@ import (
 )
 
 // HostURL - Default alteon URL
-const HostURL string = "http://localhost:8443"
+const HostURL string = "http://localhost:443"
 
 // Client -
 type Client struct {
