@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"crypto/tls"
+	//"crypto/tls"
 )
 
 // GetRealServer - Returns a specifc RealServer 
 func (c *Client) GetRealServer(RealServerID string) (*RealServerItem, error) {
-	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), nil)
 	if err != nil {
 		return nil, err
