@@ -8,7 +8,7 @@ import (
 )
 
 // GetRealServer - Returns a specifc RealServer 
-func (c *Client) GetRealServer(RealServerID string) (*RealServerItem, error) {
+func (c *Client) GetRealServer(RealServerID string) (*RealServer, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), nil)
 	if err != nil {
 		return nil, err
@@ -19,11 +19,11 @@ func (c *Client) GetRealServer(RealServerID string) (*RealServerItem, error) {
 		return nil, err
 	}
 
-	realServerItem := RealServerItem{}
-	err = json.Unmarshal(body, &realServerItem)
+	realServer:= RealServer{}
+	err = json.Unmarshal(body, &realServer)
 	if err != nil {
 		return nil, err
 	}
 
-	return &realServerItem, nil
+	return &realServer, nil
 }
