@@ -42,7 +42,7 @@ func NewClient(host, username, password *string) (*Client, error) {
 
 	if (username != nil) && (password != nil) {
 		
-		c.Token= b64.StdEncoding.EncodeToString([]byte(*username + ":" + *password))
+		c.Token= "Basic " + b64.StdEncoding.EncodeToString([]byte(*username + ":" + *password))
 
 	}
 
