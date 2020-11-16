@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
+	"crypto/tls"
 )
 
 // HostURL - Default alteon URL
@@ -26,8 +27,11 @@ type AuthStruct struct {
 
 // NewClient -
 func NewClient(host, username, password *string) (*Client, error) {
+	tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    }
 	c := Client{
-		HTTPClient: &http.Client{Timeout: 10 * time.Second},
+		HTTPClient: &http.Client{Timeout: 10 * time.Second, Transport: tr},
 		// Default alteon URL
 		HostURL: HostURL,
 	}
