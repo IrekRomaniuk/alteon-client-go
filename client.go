@@ -19,11 +19,6 @@ type Client struct {
 	Token      string
 }
 
-// AuthStruct -
-type AuthStruct struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
 
 // NewClient -
 func NewClient(host, username, password *string) (*Client, error) {
