@@ -31,11 +31,11 @@ func (c *Client) GetRealServer(RealServerID string) (*RealServer, error) {
 
 // CreateRealServer - Create new server
 func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID string) (*RealServer, error) {
-	rb, err := json.Marshal(realServerItems)
+	rb, err := json.Marshal(realServerItems[0])
 	if err != nil {
 		return nil, err
 	}
-    fmt.Printf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID)
+    
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), strings.NewReader(string(rb)))
 	if err != nil {
 		return nil, err
