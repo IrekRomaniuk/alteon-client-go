@@ -36,7 +36,7 @@ func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID
 	if err != nil {
 		return nil, err
 	}
-    
+    //fmt.Printf("%s\n",string(rb))
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), strings.NewReader(string(rb)))
 	if err != nil {
 		return nil, err
