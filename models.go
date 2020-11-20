@@ -16,3 +16,7 @@ type RealServerItem struct {
 	SuccRetry int    `json:"SuccRetry"`
 	Name string    `json:"Name"`
 }
+
+type Status struct {
+	status  string `json:"status"`
+}

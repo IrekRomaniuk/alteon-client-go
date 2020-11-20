@@ -16,6 +16,9 @@ func (c *Client) GetRealServer(RealServerID string) (*RealServer, error) {
 	}
 
 	body, err := c.doRequest(req)
+	/*{
+		"status": "ok"
+	}*/
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +33,7 @@ func (c *Client) GetRealServer(RealServerID string) (*RealServer, error) {
 }
 
 // CreateRealServer - Create new server
-func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID string) (*RealServer, error) {
+func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID string) (*Status, error) {
 	//rb, err := json.Marshal(realServerItems[0])
 	rb, err :=json.MarshalIndent(realServerItems[0], "", "    ")
 	if err != nil {
@@ -47,11 +50,11 @@ func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID
 		return nil, err
 	}
 
-	server := RealServer{}
-	err = json.Unmarshal(body, &server)
+	status := Status{}
+	err = json.Unmarshal(body, &status)
 	if err != nil {
 		return nil, err
 	}
 
-	return &server, nil
+	return &status, nil
 }
