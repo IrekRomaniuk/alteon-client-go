@@ -31,7 +31,8 @@ func (c *Client) GetRealServer(RealServerID string) (*RealServer, error) {
 
 // CreateRealServer - Create new server
 func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID string) (*RealServer, error) {
-	rb, err := json.Marshal(realServerItems[0])
+	//rb, err := json.Marshal(realServerItems[0])
+	rb, err :=json.MarshalIndent(realServerItems[0], "", "    ")
 	if err != nil {
 		return nil, err
 	}
