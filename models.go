@@ -17,6 +17,6 @@ type RealServerItem struct {
 	Name string    `json:"Name"`
 }
 
-type Status struct {
-	status  string `json:"status"`
+type Response struct {
+	Status  string `json:"status"`
 }
