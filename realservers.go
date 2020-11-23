@@ -86,23 +86,23 @@ func (c *Client) UpdateRealServer(realServerItems []RealServerItem, RealServerID
 }
 
 
-func (c *Client) DeleteRealServer(RealServerID string) (*Response, error) {
+func (c *Client) DeleteRealServer(RealServerID string) error {
 	
 	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), nil)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	body, err := c.doRequest(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	r := Response{}
 	err = json.Unmarshal(body, &r)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return &r, nil
+	return nil
 }
