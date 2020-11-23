@@ -8,7 +8,6 @@ type RealServer struct {
 // RealServerItem -
 type RealServerItem struct {
 	IpAddr  string `json:"IpAddr"`
-	IpAddr  string `json:"IpAddr"`
 	Weight int    `json:"Weight"`
 	MaxConns  int `json:"MaxConns"`
 	TimeOut int    `json:"TimeOut"`
