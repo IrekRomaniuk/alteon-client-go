@@ -21,7 +21,7 @@ type RealServerItem struct {
 type Response struct {
 	Status  string `json:"status"`
 	Message  string `json:"message"`
-	TestErr  string `json:"testErr"`
+	TestErr  string `json:"testerr"`
 	MibName  string `json:"mibName"`
 }
 

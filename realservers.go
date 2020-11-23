@@ -88,7 +88,7 @@ func (c *Client) UpdateRealServer(realServerItems []RealServerItem, RealServerID
 
 func (c *Client) DeleteRealServer(RealServerID string) error {
 	
-	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), nil)
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), nil)
 	if err != nil {
 		return err
 	}
