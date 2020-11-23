@@ -20,4 +20,8 @@ type RealServerItem struct {
 
 type Response struct {
 	Status  string `json:"status"`
+	Message  string `json:"message"`
+	TestErr  string `json:"testErr"`
+	MibName  string `json:"mibName"`
 }
+
