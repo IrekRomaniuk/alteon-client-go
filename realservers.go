@@ -58,3 +58,29 @@ func (c *Client) CreateRealServer(realServerItems []RealServerItem, RealServerID
 
 	return &r, nil
 }
+
+func (c *Client) UpdateRealServer(realServerItems []RealServerItem, RealServerID string) (*Response, error) {
+	//rb, err := json.Marshal(realServerItems[0])
+	rb, err :=json.MarshalIndent(realServerItems[0], "", "    ")
+	if err != nil {
+		return nil, err
+	}
+    //fmt.Printf("%s\n",string(rb))
+	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/SlbNewCfgEnhRealServerTable/%s", c.HostURL, RealServerID), strings.NewReader(string(rb)))
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := c.doRequest(req)
+	if err != nil {
+		return nil, err
+	}
+
+	r := Response{}
+	err = json.Unmarshal(body, &r)
+	if err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
