@@ -73,14 +73,14 @@ func TestGetItem(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}	
-	var result []RealServerItem
-	json.Unmarshal(b, &result)
+	var item []RealServerItem
+	json.Unmarshal(b, &item)
 	if err != nil {
 		t.Error(err)
 	}	else {
 		/*prettyJSON, _ := json.MarshalIndent(result, "", "    ")
 		fmt.Printf("Server:\n%s\n", string(prettyJSON))*/
-		for _, r := range result {
+		for _, r := range item {
 			if r.Index != name {
 				t.Errorf("%s  is NOT %s",r.Index, name)
 			}
