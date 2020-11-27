@@ -45,13 +45,13 @@ func TestCreateItem(t *testing.T) {
 		t.Error(err)
 	}
 	items := &RealServerItem{IpAddr:ipaddr, Name:name, Weight:1, TimeOut:2, State:3}
-	//b, err  := json.Marshal(items)
-	b, err :=json.MarshalIndent(items, "", "    ")
+	//helper, err  := json.Marshal(items)
+	helper, err :=json.MarshalIndent(items, "", "    ")
 	if err != nil {
 		t.Error(err)
 	}
-	//fmt.Println(string(b))
-	response, err := c1.CreateItem(b, table, name)
+	//fmt.Println(string(helper))
+	response, err := c1.CreateItem(helper, table, name)
 	if err != nil {
 		t.Error(err)
 	} else {
@@ -69,12 +69,12 @@ func TestGetItem(t *testing.T) {
 		t.Error(err)
 	}
 	items := realServer[table]
-	b, err  := json.Marshal(items)
+	helper, err  := json.Marshal(items)
 	if err != nil {
 		t.Error(err)
 	}	
 	var item []RealServerItem
-	json.Unmarshal(b, &item)
+	json.Unmarshal(helper, &item)
 	if err != nil {
 		t.Error(err)
 	}	else {
@@ -95,13 +95,13 @@ func TestUpdateItem(t *testing.T) {
 		t.Error(err)
 	}
 	items := &RealServerItem{IpAddr:ipaddr_update, Name:name, Weight:1, TimeOut:2, State:3}
-	//b, err  := json.Marshal(items)
-	b, err :=json.MarshalIndent(items, "", "    ")
+	//helper, err  := json.Marshal(items)
+	helper, err :=json.MarshalIndent(items, "", "    ")
 	if err != nil {
 		t.Error(err)
 	}
-	//fmt.Println(string(b))
-	response, err := c1.UpdateItem(b, table, name)
+	//fmt.Println(string(helper))
+	response, err := c1.UpdateItem(helper, table, name)
 	if err != nil {
 		t.Error(err)
 	} else {
