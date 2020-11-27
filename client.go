@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 	"crypto/tls"
+	"errors"
 )
 
 // HostURL - Default alteon URL
@@ -39,6 +40,8 @@ func NewClient(host, username, password *string) (*Client, error) {
 		
 		c.Token= "Basic " + b64.StdEncoding.EncodeToString([]byte(*username + ":" + *password))
 
+	} else {
+		return nil, errors.New("user or pass empty")
 	}
 
 	return &c, nil
