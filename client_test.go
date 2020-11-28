@@ -1,6 +1,7 @@
 package alteon
 
 import (
+	"fmt"
 	"testing"
 	"github.com/stretchr/testify/assert"
 )
@@ -11,15 +12,16 @@ var tests = []struct {
 	uri string
 }{
 	{"", "", "",},
-	{"username", "", "",},
-	{"", "password", "",},
-	{"username", "password", "",},
+	{"usernamenotempty", "", "",},
+	{"", "passwordnotempty", "",},
+	{"usernamenotempty", "passwordnotempty", "",},
 }
 
 func TestNewClient(t *testing.T) {
 	//var username, password, uri string = "", "", ""
 	// t.Log("TestNewClient")
 	for _, tt := range tests {
+		fmt.Printf("\t\tusername: %s password: %s uri: %s\n", tt.username, tt.password, tt.uri)
 		//t.Log(tt)
 		_, err := NewClient(&tt.uri, &tt.username, &tt.password)
 		//t.Log(c.Token, err)
