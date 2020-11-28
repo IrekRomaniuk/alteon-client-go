@@ -4,3 +4,8 @@
 BREAKING CHANGES:
 
 * New `alteaon-client-go` was introduced
+
+FEATURES:
+
+* New `client_test.go` was introduced
+
