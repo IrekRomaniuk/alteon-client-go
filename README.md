@@ -21,6 +21,8 @@ export ALTEON_URI=https://13.72.75.201:8443/config
 
 ```
 go test -run TestNewClient
+go test -v -run TestNewClient
+go test -cover
 go test -v
 === RUN   TestCreateItem
 Server VTJXGEFNHO created: ok
