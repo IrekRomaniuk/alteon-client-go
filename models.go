@@ -21,7 +21,7 @@ type RealServerItem struct {
 
 // ServerGroup -
 type ServerGroup struct {
-	Items [ServerGroupItem `json:"SlbNewCfgEnhGroupTable,omitempty"`
+	Items []ServerGroupItem `json:"SlbNewCfgEnhGroupTable,omitempty"`
 }
 
 // ServerGroupItem -
