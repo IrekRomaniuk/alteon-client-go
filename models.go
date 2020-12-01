@@ -28,7 +28,7 @@ type ServerGroup struct {
 type ServerGroupItem struct {
 	Index  string `json:"Index"`
 	AddServer  string `json:"AddServer"`
-	RemoveServer string    `json:"RemoveServer"`
+	RemoveServer string  `json:"RemoveServer"`
 	Name  string `json:"Name"`
 }
 
