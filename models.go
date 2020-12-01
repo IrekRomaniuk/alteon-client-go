@@ -19,6 +19,19 @@ type RealServerItem struct {
 	State int    `json:"State"`
 }
 
+// ServerGroup -
+type ServerGroup struct {
+	Items [ServerGroupItem `json:"SlbNewCfgEnhGroupTable,omitempty"`
+}
+
+// ServerGroupItem -
+type ServerGroupItem struct {
+	Index  string `json:"Index"`
+	AddServer  string `json:"AddServer"`
+	RemoveServer string    `json:"RemoveServer"`
+	Name  string `json:"Name"`
+}
+
 type Response struct {
 	Status  string `json:"status"`
 	Message  string `json:"message"`
