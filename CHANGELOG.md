@@ -1,9 +1,16 @@
- 
+
+
+### 0.2.1-pre (12/01/2020)
+
+FEATURES:
+
+* Struct `ServerGroup` added to models.go
+
 ### 0.2.0-pre (11/27/2020)
 
 BREAKING CHANGES:
 
-* New `alteaon-client-go` was introduced
+* New `client.go` was introduced
 
 FEATURES:
 
