@@ -1,5 +1,7 @@
 # alteon-client-go
 
+Client for Radware Alteon VA (Standalone) API, tested with version 32.6.1.0. To be used with terraform-provider-alteon
+
 ```
 go mod init alteon-client-go
 go mod vendor
