@@ -14,7 +14,7 @@ export ALTEON_URI=https://13.72.75.201:8443/config
 
 ### Test with real alteon server to be reachable
 
-`onnline` flag to be added, if not, mock server is to be used
+`onnline` flag to be added, if not, mock server (net/http/httptest) is to be used
 
 ```
 go test -run TestNewClient -online
