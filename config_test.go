@@ -7,45 +7,58 @@ import (
 	"os"
 	"math/rand"
 	"time"
+	"net/http/httptest"
+	"net/http"
+	"flag"
+)
+
+const (
+	ok = `{"status":"ok"}`
+	ipaddr  = "10.2.3.4"
+	ipaddrUpdate  = "10.222.111.123"
+	table  = "SlbNewCfgEnhRealServerTable"
+	weight = 1
+	timeout = 2
+	state = 3
 )
 
 var (
-	username,password, uri,name,ipaddr,ipaddr_update,table string 
+	username,password, uri,name string
 )
+
+var online = flag.Bool("online", false, "only perform mocktests")
 
 func init() {
     username  = os.Getenv("ALTEON_USERNAME")
 	password = os.Getenv("ALTEON_PASSWORD")
 	uri  = os.Getenv("ALTEON_URI")
 	rand.Seed(time.Now().UnixNano())
-	name  = randomString(10)
-	ipaddr  = "10.2.3.4"
-	ipaddr_update  = "10.222.111.123"
-	table  = "SlbNewCfgEnhRealServerTable"
+	name  = randomString(10)	
 }
 
 func TestMain(m *testing.M) {
-
 	//Do stuff BEFORE the tests!
 	if username == "" || password=="" || uri=="" {
 		fmt.Printf("env vraibles not set: uri=%s, username=%s, password=%s\n",uri, username,password)
 		os.Exit(1)
 	}
-	
 	exitVal := m.Run()
-	
 	//Do stuff AFTER the tests!
-
     os.Exit(exitVal)
 }
 
 func TestCreateItem(t *testing.T) {
-	c1, err := NewClient(&uri, &username, &password)
+	srv, url := alteonMock(table, name)
+	if srv != nil {
+		fmt.Println("Starting mock server")
+		defer srv.Close()
+	}
+	c1, err := NewClient(&url, &username, &password)
 	if err != nil {
 		t.Error(err)
 	}
-	items := &RealServerItem{IpAddr:ipaddr, Name:name, Weight:1, TimeOut:2, State:3}
-	//helper, err  := json.Marshal(items)
+	c1.HostURL= url
+	items := &RealServerItem{IpAddr:ipaddr, Name:name, Weight:weight, TimeOut:timeout, State:state}
 	helper, err :=json.MarshalIndent(items, "", "    ")
 	if err != nil {
 		t.Error(err)
@@ -60,7 +73,12 @@ func TestCreateItem(t *testing.T) {
 }
 
 func TestGetItem(t *testing.T) {
-	c1, err := NewClient(&uri, &username, &password)
+	srv, url := alteonMock(table, name)
+	if srv != nil {
+		fmt.Println("Starting mock server")
+		defer srv.Close()
+	}
+	c1, err := NewClient(&url, &username, &password)
 	if err != nil {
 		t.Error(err)
 	}
@@ -78,8 +96,6 @@ func TestGetItem(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}	else {
-		/*prettyJSON, _ := json.MarshalIndent(result, "", "    ")
-		fmt.Printf("Server:\n%s\n", string(prettyJSON))*/
 		for _, r := range item {
 			if r.Index != name {
 				t.Errorf("%s  is NOT %s",r.Index, name)
@@ -90,12 +106,16 @@ func TestGetItem(t *testing.T) {
 }
 
 func TestUpdateItem(t *testing.T) {
-	c1, err := NewClient(&uri, &username, &password)
+	srv, url := alteonMock(table, name)
+	if srv != nil {
+		fmt.Println("Starting mock server")
+		defer srv.Close()
+	}
+	c1, err := NewClient(&url, &username, &password)
 	if err != nil {
 		t.Error(err)
 	}
-	items := &RealServerItem{IpAddr:ipaddr_update, Name:name, Weight:1, TimeOut:2, State:3}
-	//helper, err  := json.Marshal(items)
+	items := &RealServerItem{IpAddr:ipaddrUpdate, Name:name, Weight:weight, TimeOut:timeout, State:state}
 	helper, err :=json.MarshalIndent(items, "", "    ")
 	if err != nil {
 		t.Error(err)
@@ -110,7 +130,12 @@ func TestUpdateItem(t *testing.T) {
 }
 
 func TestDeleteItem(t *testing.T) {
-	c1, err := NewClient(&uri, &username, &password)
+	srv, url := alteonMock(table, name)
+	if srv != nil {
+		fmt.Println("Starting mock server")
+		defer srv.Close()
+	}
+	c1, err := NewClient(&url, &username, &password)
 	if err != nil {
 		t.Error(err)
 	}
@@ -134,4 +159,22 @@ func randomString(len int) string {
         bytes[i] = byte(randomInt(65, 90))
     }
     return string(bytes)
+}
+
+func alteonMock(t,n string) (srv *httptest.Server, url string) {
+	if !*online {
+		handler := http.NewServeMux()
+	//fmt.Printf("%s/%s\n",t,n)
+	handler.HandleFunc(fmt.Sprintf("/%s/%s", t, n), responseMock)
+	srv = httptest.NewServer(handler)
+	url = srv.URL
+	} else {
+		srv = nil
+		url = uri
+	}
+	return srv, url
+}
+
+func responseMock(w http.ResponseWriter, r *http.Request) {
+	_, _ = w.Write([]byte(ok))
 }

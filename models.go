@@ -32,7 +32,7 @@ type ServerGroupItem struct {
 	HealthCheckUrl string  `json:"HealthCheckUrl"`
 	Name  string `json:"Name"`
 }
-
+// Response including all possible fields
 type Response struct {
 	Status  string `json:"status"`
 	Message  string `json:"message"`

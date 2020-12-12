@@ -37,14 +37,13 @@ func NewClient(host, username, password *string) (*Client, error) {
 	}
 
 	if (username != nil) && (password != nil) {
-		
 		c.Token= "Basic " + b64.StdEncoding.EncodeToString([]byte(*username + ":" + *password))
+		return &c, nil
 
 	} else {
 		return nil, errors.New("user or pass empty")
-	}
 
-	return &c, nil
+	}
 }
 
 func (c *Client) doRequest(req *http.Request) ([]byte, error) {

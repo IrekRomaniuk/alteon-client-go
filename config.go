@@ -36,7 +36,7 @@ func (c *Client) CreateItem(Item []byte, Table string, Index string) (*Response,
 	if err != nil {
 		return nil, err
 	}*/
-    //fmt.Printf("%s\n",string(rb))
+    //fmt.Printf("Calling %s\n",string(c.HostURL))
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/%s/%s", c.HostURL, Table, Index), strings.NewReader(string(Item)))
 	if err != nil {
 		return nil, err

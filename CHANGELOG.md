@@ -1,4 +1,9 @@
 
+### 0.2.1 (12/12/2020)
+
+FEATURES:
+
+* Tests added, including mock server and `online` flag
 
 ### 0.2.1-pre (12/01/2020)
 

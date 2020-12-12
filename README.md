@@ -19,13 +19,15 @@ export ALTEON_PASSWORD=
 export ALTEON_URI=https://13.72.75.201:8443/config
 ```
 
-### Test requires real alteon server to be reachable
+### Test with real alteon server to be reachable
+
+`onnline` flag to be added. if not mock server is to be used
 
 ```
-go test -run TestNewClient
-go test -v -run TestNewClient
-go test -cover
-go test -v
+go test -run TestNewClient -online
+go test -v -run TestNewClient -online
+go test -cover -online
+go test -v -online
 === RUN   TestCreateItem
 Server VTJXGEFNHO created: ok
 --- PASS: TestCreateItem (1.37s)
